@@ -8,7 +8,7 @@
         Title="MainWindow" Height="450" Width="384">
     <Grid Margin="0,0,2,0">
         <TextBox x:Name="addTaskTextBox" HorizontalAlignment="Left" Height="23" Margin="40,10,0,0" TextWrapping="Wrap" Text="Add Your Task" VerticalAlignment="Top" Width="265"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="320,10,0,0" VerticalAlignment="Top" Width="25" Height="23"/>
+        <Button x:Name="addButton" Content="Add" HorizontalAlignment="Left" Margin="320,10,0,0" VerticalAlignment="Top" Width="25" Height="23"/>
 
     </Grid>
 </Window>
