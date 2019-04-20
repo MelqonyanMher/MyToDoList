@@ -24,5 +24,10 @@ namespace MyToDoList.WPF
         {
             InitializeComponent();
         }
+
+        private void addButton_Click(object sender, RoutedEventArgs e)
+        {
+           taskTextBlock.Text = addTaskTextBox.Text;
+        }
     }
 }
