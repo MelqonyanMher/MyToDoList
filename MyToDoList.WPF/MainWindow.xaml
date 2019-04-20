@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="384">
     <Grid Margin="0,0,2,0">
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="40,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="265"/>
+        <TextBox x:Name="addTaskTextBox" HorizontalAlignment="Left" Height="23" Margin="40,10,0,0" TextWrapping="Wrap" Text="Add Your Task" VerticalAlignment="Top" Width="265"/>
 
     </Grid>
 </Window>
