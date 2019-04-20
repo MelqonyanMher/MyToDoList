@@ -10,7 +10,7 @@
         <TextBox x:Name="addTaskTextBox" HorizontalAlignment="Left" Height="23" Margin="40,10,0,0" TextWrapping="Wrap" Text="Add Your Task" VerticalAlignment="Top" Width="265"/>
         <Button x:Name="addButton" Content="Add" HorizontalAlignment="Left" Margin="320,10,0,0" VerticalAlignment="Top" Width="25" Height="23"/>
         <ListBox x:Name="toDoListBox" HorizontalAlignment="Left" Height="350" Margin="40,50,0,0" VerticalAlignment="Top" Width="305"/>
-        <TextBlock HorizontalAlignment="Left" Margin="40,50,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="25" Width="265"/>
+        <TextBlock x:Name="taskTextBlock" HorizontalAlignment="Left" Margin="40,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="265"/>
 
     </Grid>
 </Window>
