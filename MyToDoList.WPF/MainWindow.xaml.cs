@@ -12,17 +12,24 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using MyToDoList.Library;
 namespace MyToDoList.WPF
 {
+   
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        private ToDoTaskList _taskList;
+       
         public MainWindow()
         {
             InitializeComponent();
+            _taskList = new ToDoTaskList();
+           
+            
+            
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
@@ -30,13 +37,17 @@ namespace MyToDoList.WPF
             if (listBoxToDoListBox.Height < 300)
                 listBoxToDoListBox.Height += 51;
 
+            _taskList.Add(this.textBoxAddTask.Text);
+
             listBoxToDoListBox.Items.Add(new TaskItam(textBoxAddTask.Text));
+            
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-
-            listBoxToDoListBox.Items.Remove(listBoxToDoListBox.SelectedItem);
+            TaskItam ti =(TaskItam) listBoxToDoListBox.SelectedItem;
+            listBoxToDoListBox.Items.Remove(ti);
+            _taskList.Remove(ti.labelTask.Content.ToString());
 
         }
 
@@ -47,11 +58,15 @@ namespace MyToDoList.WPF
             {
                 TaskItam ti = (itm.GetItemAt(i) as TaskItam);
                  
-                if ((bool)(ti).checkBoxCompleated.IsChecked)
+                if ((bool)((ti).checkBoxCompleated.IsChecked))
                 {
                     listBoxToDoListBox.Items.Remove(ti);
+                    _taskList.Compleat(ti.labelTask.Content.ToString());
+                    i--;
                 }
             }
+            _taskList.RemoveAll(true);
         }
+        
     }
 }

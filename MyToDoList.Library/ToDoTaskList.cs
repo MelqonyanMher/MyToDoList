@@ -40,6 +40,31 @@ namespace MyToDoList.Library
                 myList.Add(new MyToDo(s));
             }
         }
+        public void Compleat(string s)
+        {
+            foreach (var item in myList)
+            {
+                if (item.Value == s)
+                {
+                    item.Completed = true;
+                }
+
+            };
+        }
+        public void CompleatAll(bool b)
+        {
+            foreach (var item in myList)
+            {
+                if (b)
+                {
+                    item.Completed = true;
+                }
+                else
+                    item.Completed = false;
+
+
+            };
+        }
 
         public void Remove(string s)
         {
@@ -49,17 +74,22 @@ namespace MyToDoList.Library
             }
 
             MyToDo m = null;
-
+            int c = -1;
             foreach (var item in myList)
             {
                 if (item.Value == s)
                 {
                     m = item;
+                    c = 1;
+                    break;
                 }
-                else throw new Exception("string wasn't found!");
 
+            };
+            if (c  == 1)
+            {
+                myList.Remove(m);
             }
-            myList.Remove(m);
+            else throw new Exception("string wasn't found!");
 
         }
 
