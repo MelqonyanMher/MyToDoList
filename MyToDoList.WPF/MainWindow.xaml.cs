@@ -27,7 +27,17 @@ namespace MyToDoList.WPF
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-           taskTextBlock.Text = addTaskTextBox.Text;
+            if( listBoxToDoListBox.Height <300)
+                       listBoxToDoListBox.Height += 51;
+
+            listBoxToDoListBox.Items.Add(new TaskItam(textBoxAddTask.Text));
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            
+            listBoxToDoListBox.Items.Remove(listBoxToDoListBox.SelectedItem);
+         
         }
     }
 }

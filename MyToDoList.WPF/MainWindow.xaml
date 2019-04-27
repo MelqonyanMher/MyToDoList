@@ -6,11 +6,22 @@
         xmlns:local="clr-namespace:MyToDoList.WPF"
         mc:Ignorable="d"
         Title="ToDoList" Height="450" Width="384">
+
     <Grid Margin="0,0,2,0">
-        <TextBox x:Name="addTaskTextBox" HorizontalAlignment="Left" Height="23" Margin="40,10,0,0" TextWrapping="Wrap" Text="Add Your Task" VerticalAlignment="Top" Width="265"/>
-        <Button x:Name="addButton" Content="Add" HorizontalAlignment="Left" Margin="320,10,0,0" VerticalAlignment="Top" Width="25" Height="23" Click="addButton_Click"/>
-        <ListBox x:Name="toDoListBox" HorizontalAlignment="Left" Height="350" Margin="40,50,0,0" VerticalAlignment="Top" Width="305"/>
-        <TextBlock x:Name="taskTextBlock" HorizontalAlignment="Left" Margin="40,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="25" Width="265"/>
+
+
+
+
+        <Button x:Name="btnAddTask" Content="Add" HorizontalAlignment="Left" Margin="320,10,0,0" VerticalAlignment="Top" Width="25" Height="23" Click="addButton_Click"/>
+        <TextBox x:Name="textBoxAddTask" HorizontalAlignment="Left" Height="23" Margin="40,10,0,0" TextWrapping="Wrap" Text="Add Your Task" VerticalAlignment="Top" Width="265"/>
+
+        <Button x:Name="btnDelete" Content="Del" Margin="40,60,294,338" Click="btnDelete_Click"/>
+        <ListBox x:Name="listBoxToDoListBox" Height="14" Margin="0,96,29,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="305" RenderTransformOrigin="0.5,0.5">
+
+
+        </ListBox>
+        <Button x:Name="btnDeleteCampleated" Content="Del Compleated" HorizontalAlignment="Left" Margin="95,60,0,0" VerticalAlignment="Top" Width="105" Height="21"/>
+
 
     </Grid>
 </Window>

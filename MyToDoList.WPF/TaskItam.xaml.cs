@@ -23,6 +23,14 @@ namespace MyToDoList.WPF
         public TaskItam()
         {
             InitializeComponent();
+            
         }
+        public TaskItam(string title)
+        {
+            InitializeComponent();
+            labelTask.Content = title;
+        }
+
+        
     }
 }

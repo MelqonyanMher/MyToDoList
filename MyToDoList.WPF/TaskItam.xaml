@@ -4,9 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MyToDoList.WPF"
-             mc:Ignorable="d" Height="50" Width="300">
-    <Grid>
-        <CheckBox Content="CheckBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+             mc:Ignorable="d" Height="45" Width="275">
+    <Grid Margin="0,0,-10,10">
+        <CheckBox x:Name="checkBoxCompleated" Content="" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="labelTask" Content="" HorizontalAlignment="Left" Margin="35,5,-20,0" VerticalAlignment="Top" Width="245"/>
+        <Separator HorizontalAlignment="Left" Height="10" Margin="10,30,0,-5" VerticalAlignment="Top" Width="265"/>
 
     </Grid>
 </UserControl>
