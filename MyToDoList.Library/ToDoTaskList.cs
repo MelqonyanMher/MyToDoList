@@ -18,6 +18,10 @@ namespace MyToDoList.Library
             public Guid Id { get; set; }
             public string Value { get; set; }
             public bool Completed { get; set; } = false;
+            public override string ToString()
+            {
+                return Id + "\t" + Value + "\t" + Completed;
+            }
         }
 
         private List<MyToDo> myList;
