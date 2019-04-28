@@ -120,5 +120,32 @@ namespace MyToDoList.Library
             }
             return myList.Where(x => x.Completed == b).Select(x => x.Value);
         }
+
+        public MyToDo this[string s]
+        {
+            get
+            {
+                foreach(MyToDo m in myList)
+                {
+                    if(m.Value == s)
+                    {
+                        return m;
+                    }
+
+                }
+                throw new Exception();
+            }
+            set
+            {
+                for (int i =0;i<myList.Count;i++)
+                {
+                    if (myList[i].Value == s)
+                    {
+                        myList[i] = value;
+                    }
+
+                }
+            }
+        }
     }
 }
