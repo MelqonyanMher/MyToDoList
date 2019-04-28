@@ -6,23 +6,24 @@ using System.Threading.Tasks;
 
 namespace MyToDoList.Library
 {
+    public class MyToDo
+    {
+        public MyToDo(string value)
+        {
+            Value = value;
+        }
+
+        public Guid Id { get; set; }
+        public string Value { get; set; }
+        public bool Completed { get; set; } = false;
+        public override string ToString()
+        {
+            return Id + "\t" + Value + "\t" + Completed;
+        }
+    }
     public class ToDoTaskList
     {
-        private class MyToDo
-        {
-            public MyToDo(string value)
-            {
-                Value = value;
-            }
-
-            public Guid Id { get; set; }
-            public string Value { get; set; }
-            public bool Completed { get; set; } = false;
-            public override string ToString()
-            {
-                return Id + "\t" + Value + "\t" + Completed;
-            }
-        }
+       
 
         private List<MyToDo> myList;
 
