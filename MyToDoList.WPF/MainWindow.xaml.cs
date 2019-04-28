@@ -22,12 +22,13 @@ namespace MyToDoList.WPF
     public partial class MainWindow : Window
     {
         private ToDoTaskList _taskList;
-       
+        private ToDoListMeneger _todoMeneger;
         public MainWindow()
         {
             InitializeComponent();
             _taskList = new ToDoTaskList();
-           
+            _todoMeneger = new ToDoListMeneger();
+            _todoMeneger.CreateDBAndTAbleIfNotExist();
             
             
         }
