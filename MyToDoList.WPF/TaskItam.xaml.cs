@@ -23,14 +23,18 @@ namespace MyToDoList.WPF
         public TaskItam()
         {
             InitializeComponent();
-            
+
         }
-        public TaskItam(string title)
+        public TaskItam(string title, bool b)
         {
             InitializeComponent();
             labelTask.Content = title;
+
+            checkBoxCompleated.IsChecked = b;
+
+
         }
 
-        
+
     }
 }

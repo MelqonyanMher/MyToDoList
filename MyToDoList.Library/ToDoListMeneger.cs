@@ -36,5 +36,45 @@ namespace MyToDoList.Library
             }
         }
 
+        public void AddTaskInTable(MyToDo task)
+        {
+            string query = $"Use ToDoList" +
+                $" Insert into Task (Id,Title) Values ('{task.Id}','{task.Value}')";
+            using (_conection = new SqlConnection(connectionString))
+            {
+                _conection.Open();
+                _comand = new SqlCommand(query,_conection);
+                _comand.ExecuteNonQuery();
+            }
+        }
+
+        public void RemoveTaskFromTable(MyToDo task)
+        {
+            string query = $"Use ToDoList" +
+                $" Delete From Task where [Id] ='{task.Id}'";
+            using (_conection = new SqlConnection(connectionString))
+            {
+                _conection.Open();
+                _comand = new SqlCommand(query, _conection);
+                _comand.ExecuteNonQuery();
+            }
+        }
+        public ToDoTaskList ReadFromBase(ToDoTaskList list)
+        {
+            string query = $"Use ToDoList" +
+                $" Select Id,Title,Compleated from Task";
+            using (_conection = new SqlConnection(connectionString))
+            {
+                _conection.Open();
+                _comand = new SqlCommand(query, _conection);
+                SqlDataReader reader = _comand.ExecuteReader();
+                while (reader.Read())
+                {
+
+                    list.Add(new MyToDo((Guid)reader[0], (string)reader[1], (bool)reader[2]));
+                }
+                return list;
+            }
+        }
     }
 }

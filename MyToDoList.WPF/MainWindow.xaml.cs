@@ -29,18 +29,28 @@ namespace MyToDoList.WPF
             _taskList = new ToDoTaskList();
             _todoMeneger = new ToDoListMeneger();
             _todoMeneger.CreateDBAndTAbleIfNotExist();
-            
+            _taskList = _todoMeneger.ReadFromBase(_taskList);
+            for(int i= 0; i < _taskList.Count;i++)
+            {
+                if (listBoxToDoListBox.Height < 250)
+                {
+                    listBoxToDoListBox.Height += 51;
+                }
+                listBoxToDoListBox.Items.Add(new TaskItam(_taskList[i].Value,_taskList[i].Completed));
+            }
             
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
-            if (listBoxToDoListBox.Height < 300)
+            if (listBoxToDoListBox.Height < 250)
+            {
                 listBoxToDoListBox.Height += 51;
+            }
 
             _taskList.Add(this.textBoxAddTask.Text);
-
-            listBoxToDoListBox.Items.Add(new TaskItam(textBoxAddTask.Text));
+            _todoMeneger.AddTaskInTable(_taskList[textBoxAddTask.Text]);
+            listBoxToDoListBox.Items.Add(new TaskItam(textBoxAddTask.Text,false));
             
         }
 
@@ -49,6 +59,7 @@ namespace MyToDoList.WPF
             TaskItam ti =(TaskItam) listBoxToDoListBox.SelectedItem;
             listBoxToDoListBox.Items.Remove(ti);
             _taskList.Remove(ti.labelTask.Content.ToString());
+            _todoMeneger.RemoveTaskFromTable(_taskList[ti.labelTask.Content.ToString()]);
 
         }
 

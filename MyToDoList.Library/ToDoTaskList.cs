@@ -13,7 +13,14 @@ namespace MyToDoList.Library
             Value = value;
         }
 
-        public Guid Id { get; set; }
+        public MyToDo(Guid id, string value, bool completed)
+        {
+            Id = id;
+            Value = value;
+            Completed = completed;
+        }
+
+        public Guid Id { get; set; } = Guid.NewGuid(); 
         public string Value { get; set; }
         public bool Completed { get; set; } = false;
         public override string ToString()
@@ -29,6 +36,8 @@ namespace MyToDoList.Library
 
         public bool IsEmpty => myList == null;
 
+        public int Count => myList.Count;
+
         public void Add(string s)
         {
             if (IsEmpty)
@@ -39,6 +48,18 @@ namespace MyToDoList.Library
             else
             {
                 myList.Add(new MyToDo(s));
+            }
+        }
+        public void Add(MyToDo mtd)
+        {
+            if (IsEmpty)
+            {
+                myList = new List<MyToDo>();
+                myList.Add(mtd);
+            }
+            else
+            {
+                myList.Add(mtd);
             }
         }
         public void Compleat(string s)
@@ -145,6 +166,18 @@ namespace MyToDoList.Library
                     }
 
                 }
+            }
+        }
+        public MyToDo this[int i]
+        {
+            get
+            {
+
+                return myList[i];
+            }
+            set
+            {
+                myList[i] = value;
             }
         }
     }
