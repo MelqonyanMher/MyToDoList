@@ -57,9 +57,10 @@ namespace MyToDoList.WPF
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             TaskItam ti =(TaskItam) listBoxToDoListBox.SelectedItem;
+            MyToDo my = _taskList[ti.labelTask.Content.ToString()];
             listBoxToDoListBox.Items.Remove(ti);
             _taskList.Remove(ti.labelTask.Content.ToString());
-            _todoMeneger.RemoveTaskFromTable(_taskList[ti.labelTask.Content.ToString()]);
+            _todoMeneger.RemoveTaskFromTable(my);
 
         }
 
