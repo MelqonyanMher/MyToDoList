@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyToDoList.Library", "MyToD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tasks.Library", "Tasks.Library\Tasks.Library.csproj", "{94200195-059E-4B23-ABA8-FC9EFBAD6640}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tasks.AspNetCore", "Tasks.AspNetCore\Tasks.AspNetCore.csproj", "{3C7E0F4F-3ACA-4CFA-B966-90DA0FDEBEE1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{94200195-059E-4B23-ABA8-FC9EFBAD6640}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{94200195-059E-4B23-ABA8-FC9EFBAD6640}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94200195-059E-4B23-ABA8-FC9EFBAD6640}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C7E0F4F-3ACA-4CFA-B966-90DA0FDEBEE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C7E0F4F-3ACA-4CFA-B966-90DA0FDEBEE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C7E0F4F-3ACA-4CFA-B966-90DA0FDEBEE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C7E0F4F-3ACA-4CFA-B966-90DA0FDEBEE1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

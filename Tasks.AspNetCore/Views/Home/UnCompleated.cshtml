@@ -1,0 +1,55 @@
+﻿@model Tasks.AspNetCore.Models.IndexMeneger;
+
+
+<form>
+    <div>
+        <p>Add Task</p>
+        <input type="text" asp-for="Title" name="textTaskTitle" size="15" maxlength="30" />
+        <a asp-area="" asp-controller="Home" asp-action="Add" asp-route-tit="@Model.Title"><input type="button" name="btnAddTask" value="Add" /></a>
+    </div>
+</form>
+<form id=" list" name="formList">
+    <br />
+    <table border="1">
+        <tr>
+        <thead>
+        <th bgcolor="#cccccc" width="1000">Task</th>
+
+        <th bgcolor="#cccccc">Compleated</th>
+        </thead>
+
+        </tr>
+        <tbody>
+            @{
+                foreach (var i in Model.Itams)
+                {
+                    <tr>
+                        @{ if (i.Compleated)
+                            {
+                                <td>
+                                    <p><s>@i.Title</s></p>
+                                </td>
+                                <td>
+                                    <input type="checkbox" checked="checked" />
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <p>@i.Title</p>
+                                </td>
+                                <td>
+                                    <input type="checkbox" />
+                                </td>
+                            }
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <br />
+</form>
+
+<h2>UnCompleated</h2>
+
