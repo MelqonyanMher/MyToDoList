@@ -29,7 +29,8 @@ namespace Tasks.AspNetCore.Controllers
             }
             _indmen = new IndexMeneger()
             {
-                Itams = l
+                Itams = l,
+                Title=string.Empty
             };
             return View(_indmen);
         }
@@ -70,13 +71,15 @@ namespace Tasks.AspNetCore.Controllers
             return View();
         }
 
-        public void Add(string tit)
+        [HttpPost]
+        public void Add()
         {
-            using(var db = new TasksContext())
+            IndexMeneger e;
+            using (var db = new TasksContext())
             {
                 db.Tasks.Add(new Itam()
                 {
-                    Title = tit
+                    Title = e.Title
                 }
                 );
 

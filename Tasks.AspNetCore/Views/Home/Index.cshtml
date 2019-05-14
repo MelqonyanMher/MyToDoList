@@ -1,11 +1,12 @@
-﻿@model Tasks.AspNetCore.Models.IndexMeneger;
+﻿@model Tasks.AspNetCore.Models.IndexMeneger
 
 <h1>ToDoList</h1>
-<form>
+<form  method="post"  >
     <div>
         <p>Add Task</p>
-        <input type="text" asp-for="Title" name="textTaskTitle" size="15" maxlength="30" />
-        <a asp-action="Add"  asp-controller="Home" asp-route-tit="@Model.Title"><input type="button" name="btnAddTask" value="Add" /></a>
+        <input asp-for="Title" size="15" maxlength="30" />
+        <input type="submit" asp-action="Add" asp-controller="Home"  value="Add"/>
+        @*<a asp-action="Add"  asp-controller="Home" asp-route-task="@Model.Title"><input type="button" name="btnAddTask" value="Add" /></a>*@
     </div>
 </form>
 <form id=" list" name="formList">
