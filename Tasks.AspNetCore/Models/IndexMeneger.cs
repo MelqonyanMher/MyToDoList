@@ -9,5 +9,6 @@ namespace Tasks.AspNetCore.Models
     {
         public List<Itam> Itams { get; set; }
         public string Title { get; set; }
+        public bool Checko { get; set; }
     }
 }

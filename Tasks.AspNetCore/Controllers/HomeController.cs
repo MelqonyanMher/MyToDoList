@@ -12,11 +12,12 @@ namespace Tasks.AspNetCore.Controllers
     {
         private bool IsEnsureCreated = false;
         private IndexMeneger _indmen;
+
         public IActionResult Index()
         {
             if (!IsEnsureCreated)
             {
-                using(var db = new TasksContext())
+                using (var db = new TasksContext())
                 {
                     db.Database.EnsureCreated();
                 }
@@ -29,7 +30,8 @@ namespace Tasks.AspNetCore.Controllers
             }
             _indmen = new IndexMeneger()
             {
-                Itams = l
+                Itams = l,
+                Title = "Hovik"
             };
             return View(_indmen);
         }
@@ -40,13 +42,14 @@ namespace Tasks.AspNetCore.Controllers
             List<Itam> l;
             using (var db = new TasksContext())
             {
-                l = db.Tasks.Where(x=>x.Compleated==true).ToList();
+                l = db.Tasks.Where(x => x.Compleated == true).ToList();
             }
             _indmen = new IndexMeneger()
             {
-                Itams = l
+                Itams = l,
+                Title = " "
             };
-            return View(_indmen);
+            return View("Index", _indmen);
         }
         public IActionResult UnCompleated()
         {
@@ -56,34 +59,70 @@ namespace Tasks.AspNetCore.Controllers
             {
                 l = db.Tasks.Where(x => x.Compleated == false).ToList();
             }
+
             _indmen = new IndexMeneger()
             {
-                Itams = l
+                Itams = l,
+                Title = " "
             };
-            return View(_indmen);
+            return View("Index", _indmen);
         }
 
-        public IActionResult Contact()
+        public IActionResult Checking(int id)
         {
-            ViewData["Message"] = "Your contact page.";
+            List<Itam> l;
+            using (var db = new TasksContext())
+            {
+                Itam it = db.Tasks.SingleOrDefault(x => x.ItamId == id);
 
-            return View();
+                if (it.Compleated)
+                {
+                    it.Compleated = false;
+                }
+                else
+                {
+                    it.Compleated = true;
+                }
+
+                db.Update(it);
+                db.SaveChanges();
+
+                l = db.Tasks.ToList();
+            }
+
+            _indmen = new IndexMeneger()
+            {
+                Itams = l,
+                Title = " "
+            };
+
+            return View("Index", _indmen);
         }
 
-        public void Add(string tit)
+        public IActionResult Add(IndexMeneger task)
         {
-            using(var db = new TasksContext())
+            List<Itam> l;
+            using (var db = new TasksContext())
             {
                 db.Tasks.Add(new Itam()
                 {
-                    Title = tit
+                    Title = task.Title
                 }
                 );
 
                 db.SaveChanges();
+
+                l = db.Tasks.ToList();
             }
 
-            Index();
+
+            _indmen = new IndexMeneger()
+            {
+                Itams = l,
+                Title = " "
+            };
+
+            return View("Index", _indmen);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

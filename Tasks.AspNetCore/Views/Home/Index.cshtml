@@ -1,19 +1,19 @@
 ﻿@model Tasks.AspNetCore.Models.IndexMeneger;
 
 <h1>ToDoList</h1>
-<form>
+<form method="post">
     <div>
         <p>Add Task</p>
-        <input type="text" asp-for="Title" name="textTaskTitle" size="15" maxlength="30" />
-        <a asp-action="Add"  asp-controller="Home" asp-route-tit="@Model.Title"><input type="button" name="btnAddTask" value="Add" /></a>
+        <input  asp-for="Title" size="15" maxlength="30" />
+        <input type="submit" asp-action="Add"  asp-controller="Home"   value="Add" />
     </div>
 </form>
 <form id=" list" name="formList">
     <br />
-    <table border="1">
+    <table >
 
         <thead>
-        <th bgcolor="#cccccc" width="500">Task</thbgcolor>
+        <th bgcolor="#cccccc" width="500">Task</th>
 
         <th bgcolor="#cccccc">Compleated</th>
         </thead>
@@ -29,7 +29,7 @@
                                     <p><s>@i.Title</s></p>
                                 </td>
                                 <td>
-                                    <input type="checkbox" checked="checked" />
+                                    <a href="https://@($"localhost:5001/Home/Checking/{i.ItamId}")">&#9989;</a>
                                 </td>
                             }
                             else
@@ -37,8 +37,8 @@
                                 <td>
                                     <p>@i.Title</p>
                                 </td>
-                                <td>
-                                    <input type="checkbox" />
+                                <td >
+                                    <a href="https://@($"localhost:5001/Home/Checking/{i.ItamId}")">&#10063;</a>
                                 </td>
                             }
                         }
