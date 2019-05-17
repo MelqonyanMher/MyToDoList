@@ -7,7 +7,7 @@ namespace Tasks.AspNetCore.Models
 {
     public class Itam
     {
-        public int ItamId { get; set; } 
+        public Guid Id { get; set; } 
         public string Title { get; set; }
         public bool Compleated { get; set; } 
     }

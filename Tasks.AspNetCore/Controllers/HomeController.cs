@@ -10,24 +10,20 @@ namespace Tasks.AspNetCore.Controllers
 {
     public class HomeController : Controller
     {
-        private bool IsEnsureCreated = false;
         private IndexMeneger _indmen;
+        private TasksContext _context;
+
+        public HomeController(TasksContext context)
+        {
+            _context = context;
+        }
 
         public IActionResult Index()
         {
-            if (!IsEnsureCreated)
-            {
-                using (var db = new TasksContext())
-                {
-                    db.Database.EnsureCreated();
-                }
-                IsEnsureCreated = true;
-            }
             List<Itam> l;
-            using (var db = new TasksContext())
-            {
-                l = db.Tasks.ToList();
-            }
+
+            l = _context.Tasks.ToList();
+
             _indmen = new IndexMeneger()
             {
                 Itams = l,
@@ -40,10 +36,9 @@ namespace Tasks.AspNetCore.Controllers
         {
             ViewData["Message"] = "Your application description page.";
             List<Itam> l;
-            using (var db = new TasksContext())
-            {
-                l = db.Tasks.Where(x => x.Compleated == true).ToList();
-            }
+
+            l = _context.Tasks.Where(x => x.Compleated == true).ToList();
+
             _indmen = new IndexMeneger()
             {
                 Itams = l,
@@ -55,10 +50,8 @@ namespace Tasks.AspNetCore.Controllers
         {
             ViewData["Message"] = "Your application description page.";
             List<Itam> l;
-            using (var db = new TasksContext())
-            {
-                l = db.Tasks.Where(x => x.Compleated == false).ToList();
-            }
+
+            l = _context.Tasks.Where(x => x.Compleated == false).ToList();
 
             _indmen = new IndexMeneger()
             {
@@ -68,27 +61,26 @@ namespace Tasks.AspNetCore.Controllers
             return View("Index", _indmen);
         }
 
-        public IActionResult Checking(int id)
+        public IActionResult Checking(Guid id)
         {
             List<Itam> l;
-            using (var db = new TasksContext())
+
+            Itam it = _context.Tasks.SingleOrDefault(x => x.Id == id);
+
+            if (it.Compleated)
             {
-                Itam it = db.Tasks.SingleOrDefault(x => x.ItamId == id);
-
-                if (it.Compleated)
-                {
-                    it.Compleated = false;
-                }
-                else
-                {
-                    it.Compleated = true;
-                }
-
-                db.Update(it);
-                db.SaveChanges();
-
-                l = db.Tasks.ToList();
+                it.Compleated = false;
             }
+            else
+            {
+                it.Compleated = true;
+            }
+
+            _context.Update(it);
+            _context.SaveChanges();
+
+            l = _context.Tasks.ToList();
+
 
             _indmen = new IndexMeneger()
             {
@@ -102,18 +94,17 @@ namespace Tasks.AspNetCore.Controllers
         public IActionResult Add(IndexMeneger task)
         {
             List<Itam> l;
-            using (var db = new TasksContext())
+
+            _context.Tasks.Add(new Itam()
             {
-                db.Tasks.Add(new Itam()
-                {
-                    Title = task.Title
-                }
-                );
-
-                db.SaveChanges();
-
-                l = db.Tasks.ToList();
+                Title = task.Title
             }
+            );
+
+            _context.SaveChanges();
+
+            l = _context.Tasks.ToList();
+
 
 
             _indmen = new IndexMeneger()
