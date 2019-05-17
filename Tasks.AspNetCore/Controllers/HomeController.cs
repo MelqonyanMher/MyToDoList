@@ -10,24 +10,27 @@ namespace Tasks.AspNetCore.Controllers
 {
     public class HomeController : Controller
     {
+        private bool IsEnsureCreated = false;
         private IndexMeneger _indmen;
-        private TasksContext _context;
-
-        public HomeController(TasksContext context)
-        {
-            _context = context;
-        }
-
         public IActionResult Index()
         {
+            if (!IsEnsureCreated)
+            {
+                using(var db = new TasksContext())
+                {
+                    db.Database.EnsureCreated();
+                }
+                IsEnsureCreated = true;
+            }
             List<Itam> l;
-
-            l = _context.Tasks.ToList();
-
+            using (var db = new TasksContext())
+            {
+                l = db.Tasks.ToList();
+            }
             _indmen = new IndexMeneger()
             {
                 Itams = l,
-                Title = "Hovik"
+                Title=string.Empty
             };
             return View(_indmen);
         }
@@ -36,84 +39,54 @@ namespace Tasks.AspNetCore.Controllers
         {
             ViewData["Message"] = "Your application description page.";
             List<Itam> l;
-
-            l = _context.Tasks.Where(x => x.Compleated == true).ToList();
-
+            using (var db = new TasksContext())
+            {
+                l = db.Tasks.Where(x=>x.Compleated==true).ToList();
+            }
             _indmen = new IndexMeneger()
             {
-                Itams = l,
-                Title = " "
+                Itams = l
             };
-            return View("Index", _indmen);
+            return View(_indmen);
         }
         public IActionResult UnCompleated()
         {
             ViewData["Message"] = "Your application description page.";
             List<Itam> l;
-
-            l = _context.Tasks.Where(x => x.Compleated == false).ToList();
-
+            using (var db = new TasksContext())
+            {
+                l = db.Tasks.Where(x => x.Compleated == false).ToList();
+            }
             _indmen = new IndexMeneger()
             {
-                Itams = l,
-                Title = " "
+                Itams = l
             };
-            return View("Index", _indmen);
+            return View(_indmen);
         }
 
-        public IActionResult Checking(Guid id)
+        public IActionResult Contact()
         {
-            List<Itam> l;
+            ViewData["Message"] = "Your contact page.";
 
-            Itam it = _context.Tasks.SingleOrDefault(x => x.Id == id);
-
-            if (it.Compleated)
-            {
-                it.Compleated = false;
-            }
-            else
-            {
-                it.Compleated = true;
-            }
-
-            _context.Update(it);
-            _context.SaveChanges();
-
-            l = _context.Tasks.ToList();
-
-
-            _indmen = new IndexMeneger()
-            {
-                Itams = l,
-                Title = " "
-            };
-
-            return View("Index", _indmen);
+            return View();
         }
 
-        public IActionResult Add(IndexMeneger task)
+        [HttpPost]
+        public void Add()
         {
-            List<Itam> l;
-
-            _context.Tasks.Add(new Itam()
+            IndexMeneger e;
+            using (var db = new TasksContext())
             {
-                Title = task.Title
+                db.Tasks.Add(new Itam()
+                {
+                    Title = e.Title
+                }
+                );
+
+                db.SaveChanges();
             }
-            );
 
-            _context.SaveChanges();
-
-            l = _context.Tasks.ToList();
-
-
-
-            _indmen = new IndexMeneger()
-            {
-                Itams = l,
-                Title = " "
-            };
-
-            return View("Index", _indmen);
+            Index();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
