@@ -5,16 +5,16 @@
     <div>
         <p>Add Task</p>
         <input asp-for="Title" size="15" maxlength="30" />
-        <input type="submit" asp-action="Add" asp-controller="Home"  value="Add"/>
+        <input type="submit" asp-action="AddAsync" asp-controller="Home"  value="Add"/>
         @*<a asp-action="Add"  asp-controller="Home" asp-route-task="@Model.Title"><input type="button" name="btnAddTask" value="Add" /></a>*@
     </div>
 </form>
 <form id=" list" name="formList">
     <br />
-    <table border="1">
+    <table >
 
         <thead>
-        <th bgcolor="#cccccc" width="500">Task</thbgcolor>
+        <th bgcolor="#cccccc" width="500">Task</th>
 
         <th bgcolor="#cccccc">Compleated</th>
         </thead>
@@ -23,27 +23,33 @@
             @{
                 foreach (var i in Model.Itams)
                 {
-                    <tr>
-                        @{ if (i.Compleated)
-                            {
-                                <td bgcolor="#ff0000">
-                                    <p><s>@i.Title</s></p>
-                                </td>
-                                <td>
-                                    <input type="checkbox" checked="checked" />
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    <p>@i.Title</p>
-                                </td>
-                                <td>
-                                    <input type="checkbox" />
-                                </td>
-                            }
-                        }
-                    </tr>
+            <tr>
+                @{ if (i.Compleated)
+                    {
+                        <td bgcolor="#ff0000">
+                            <p><s>@i.Title</s></p>
+                        </td>
+                        <td>
+                            <a href="https://@($"localhost:5001/Home/CheckingAsync/{i.Id}")">&#9745;</a>
+                        </td>
+                        <td>
+                            <a title="Delete" href="https://@($"localhost:5001/Home/DeleteAsync/{i.Id}")">&#10007;</a>
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            <p>@i.Title</p>
+                        </td>
+                        <td>
+                            <a href="https://@($"localhost:5001/Home/CheckingAsync/{i.Id}")">&#9744;</a>
+                        </td>
+                        <td>
+                            <a title="Delete" href="https://@($"localhost:5001/Home/DeleteAsync/{i.Id}")">&#10007;</a>
+                        </td>
+                    }
+                }
+            </tr>
                 }
             }
         </tbody>

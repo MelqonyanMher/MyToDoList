@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tasks.AspNetCore.Models;
+using Tasks.AspNetCore.Services;
 
 namespace Tasks.AspNetCore
 {
@@ -39,6 +40,7 @@ namespace Tasks.AspNetCore
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<TasksContext>(options => options.UseSqlServer(connectionString));
 
+            services.AddScoped<IToDoService, ToDoService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

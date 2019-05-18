@@ -5,31 +5,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Tasks.AspNetCore.Models;
+using Tasks.AspNetCore.Services;
 
 namespace Tasks.AspNetCore.Controllers
 {
     public class HomeController : Controller
     {
-        private bool IsEnsureCreated = false;
-        private IndexMeneger _indmen;
+        IToDoService _toDo;
+
+        public HomeController(IToDoService todo)
+        {
+            _toDo = todo;
+        }
+        IndexMeneger _indmen;
         public IActionResult Index()
         {
-            if (!IsEnsureCreated)
+
+
+             _indmen = new IndexMeneger()
             {
-                using(var db = new TasksContext())
-                {
-                    db.Database.EnsureCreated();
-                }
-                IsEnsureCreated = true;
-            }
-            List<Itam> l;
-            using (var db = new TasksContext())
-            {
-                l = db.Tasks.ToList();
-            }
-            _indmen = new IndexMeneger()
-            {
-                Itams = l,
+                Itams = _toDo.GetItams(),
                 Title=string.Empty
             };
             return View(_indmen);
@@ -38,30 +33,22 @@ namespace Tasks.AspNetCore.Controllers
         public IActionResult Compleated()
         {
             ViewData["Message"] = "Your application description page.";
-            List<Itam> l;
-            using (var db = new TasksContext())
-            {
-                l = db.Tasks.Where(x=>x.Compleated==true).ToList();
-            }
+           
             _indmen = new IndexMeneger()
             {
-                Itams = l
+                Itams = _toDo.GetItams(completed:true)
             };
-            return View(_indmen);
+            return View("Index",_indmen);
         }
         public IActionResult UnCompleated()
         {
             ViewData["Message"] = "Your application description page.";
-            List<Itam> l;
-            using (var db = new TasksContext())
-            {
-                l = db.Tasks.Where(x => x.Compleated == false).ToList();
-            }
+           
             _indmen = new IndexMeneger()
             {
-                Itams = l
+                Itams = _toDo.GetItams(completed:false)
             };
-            return View(_indmen);
+            return View("Index",_indmen);
         }
 
         public IActionResult Contact()
@@ -72,23 +59,41 @@ namespace Tasks.AspNetCore.Controllers
         }
 
         [HttpPost]
-        public void Add()
+        public async Task<IActionResult> AddAsync(IndexMeneger index)
         {
-            IndexMeneger e;
-            using (var db = new TasksContext())
+            
+            await _toDo.AddAsync(new Itam
             {
-                db.Tasks.Add(new Itam()
-                {
-                    Title = e.Title
-                }
-                );
-
-                db.SaveChanges();
-            }
-
-            Index();
+                Title = index.Title
+            });
+            _indmen = new IndexMeneger()
+            {
+                Itams = _toDo.GetItams()
+            };
+            return View("Index", _indmen);
         }
 
+        public async Task<IActionResult> CheckingAsync(Guid id)
+        {
+            var itam = _toDo.GetItam(id);
+            await _toDo.ChangeConditionAsync(itam);
+            _indmen = new IndexMeneger
+            {
+                Itams = _toDo.GetItams()
+            };
+            return View("Index", _indmen);
+        }
+
+        public async Task DeleteAsync(Guid id)
+        {
+            var itam = _toDo.GetItam(id);
+            await _toDo.DeleteAsync(itam);
+            _indmen = new IndexMeneger
+            {
+                Itams = _toDo.GetItams()
+            };
+            return;
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
