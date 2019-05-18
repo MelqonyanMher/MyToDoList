@@ -14,9 +14,9 @@ namespace Tasks.AspNetCore.Services
 
         Task ChangeConditionAsync(Itam i);
 
-        Task<Itam> GetItamAsync(Guid id);
+        Itam GetItam(Guid id);
 
-        Task<IEnumerable<Itam>> GetItamsAsync(OrderBy orderBy = OrderBy.IdAsc,
+        IEnumerable<Itam> GetItams(OrderBy orderBy = OrderBy.IdAsc,
             int offset = 0,
             int limit = 10,
             bool? completed = null,

@@ -10,10 +10,12 @@ namespace Tasks.AspNetCore.Services
     {
         private TasksContext _context;
 
+
         public ToDoService(TasksContext context)
         {
             _context = context;
         }
+
 
         public async Task<Itam> AddAsync(Itam i)
         {
@@ -46,14 +48,55 @@ namespace Tasks.AspNetCore.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Itam> GetItamAsync(Guid id)
+        public Itam GetItam(Guid id)
         {
-            throw new NotImplementedException();
+            return  _context.Tasks.SingleOrDefault(i => i.Id == id);
         }
 
-        public async Task<IEnumerable<Itam>> GetItamsAsync(OrderBy orderBy = OrderBy.IdAsc, int offset = 0, int limit = 10, bool? completed = null, string titleFilter = null)
+        public  IEnumerable<Itam> GetItams(OrderBy orderBy = OrderBy.IdAsc, int offset = 0, int limit = 10, bool? completed = null, string titleFilter = null)
         {
-            throw new NotImplementedException();
+            var query = _context.Tasks.AsQueryable();
+            switch (orderBy)
+            {
+                case OrderBy.TitleAsc:
+                    query = _context.Tasks.OrderBy(i => i.Title);
+                    break;
+                case OrderBy.TitleDesc:
+                    query = _context.Tasks.OrderByDescending(i => i.Title);
+                    break;
+                case OrderBy.IdAsc:
+                    query = _context.Tasks.OrderBy(i => i.Id);
+                    break;
+                case OrderBy.IdDesc:
+                    query = _context.Tasks.OrderByDescending(i => i.Id);
+                    break;
+                default:
+                    break;
+            }
+
+            if (offset >= 0 && limit >= 0)
+            {
+                try
+                {
+                    query = _context.Tasks.Skip(offset).Take(limit);
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+
+            if (completed.HasValue)
+            {
+                query = _context.Tasks.Where(i => i.Compleated == completed);
+            }
+
+            if(titleFilter!= null)
+            {
+                query = _context.Tasks.Where(i => i.Title.Contains(titleFilter));
+            }
+
+            return query;
         }
     }
 }
